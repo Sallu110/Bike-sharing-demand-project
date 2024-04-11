@@ -26,7 +26,7 @@ bikes_prep.hist(rwidth = 0.9)
 plt.tight_layout()
 
 
-# visualooze the continous feature vs demand using scatter plot 
+# visualize the continous feature vs demand using scatter plot 
 plt.subplot(2,2,1)
 plt.title('atemperature vs demand')
 plt.scatter(bikes_prep['atemp'],bikes_prep['demand'],s = 0.1, c = 'b')
