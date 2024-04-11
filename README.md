@@ -160,7 +160,7 @@ plt.tight_layout()
 
 #----------------------------------------------------------------------------
 
-#assumptions of multiple linear regression 
+# assumptions of multiple linear regression 
 
 #----------------------------------------------------------------------------
 
