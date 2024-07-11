@@ -31,9 +31,7 @@ Preliminary Analysis and Feature Selection
 bikes_prep = bikes.copy()
 bikes_prep = bikes_prep.drop(['index', 'date', 'casual', 'registered'], axis=1)
 bikes_prep.isnull().sum()
-Visualizing the Data
-
-Histograms for data distribution:
+Visualizing the Data Histograms for data distribution:
 
 # python code
 bikes_prep.hist(rwidth=0.9)
@@ -62,8 +60,9 @@ cat_list = bikes_prep['season'].unique()
 cat_average = bikes_prep.groupby('season').mean()['demand']
 colors = ['m', 'b', 'r', 'g']
 plt.bar(cat_list, cat_average, color=colors)
-Assumptions of Multiple Linear Regression
-Checking for Outliers
+
+# Assumptions of Multiple Linear Regression
+# Checking for Outliers
 
 # python code
 bikes_prep['demand'].describe()
