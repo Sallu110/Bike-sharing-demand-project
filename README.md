@@ -5,7 +5,8 @@ To predict bike demand based on various features using machine learning models a
 
 Dataset
 Source: Kaggle
-Features:
+
+# Features:
 Weather
 Temperature
 Holiday
