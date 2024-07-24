@@ -150,11 +150,32 @@ plt.acorr(df1, maxlags=12)
 ## Feature Engineering
 ```python
 Log Normalization of Demand
-bikes_prep['demand'] = np.log(bikes_prep['demand'])
+
+df1 = bikes_prep['demand']
+df2 = np.log(df1) 
+
+plt.figure()
+df1.hist(rwidth = 0.9,bins = 20)
 ```
+df1 without normalization 
+
+![Screenshot 2024-07-15 192615](https://github.com/user-attachments/assets/94b0a27a-4214-424f-b9a9-e586bfa4b57b)
+
+```python
+plt.figure()
+df2.hist(rwidth = 0.9,bins = 20)
+```
+df2 with normalization
+
 ![Screenshot 2024-07-15 192515](https://github.com/user-attachments/assets/3a47b9e6-b2c8-44f0-81ac-c0e3fa87618a)
 
+```python
+bikes_prep['demand'] = np.log(bikes_prep['demand'])
+```
+
+
 ## Lag Features
+solving the problem of autocorrelation of demand by using slide window aproach.
 ```python
 t_1 = bikes_prep['demand'].shift(+1).to_frame()
 t_2 = bikes_prep['demand'].shift(+2).to_frame()
