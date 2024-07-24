@@ -1,13 +1,13 @@
 
 # Bike Demand Prediction Using Machine Learning
 
-# Objective
+## Objective
 To predict bike demand based on various features using machine learning models and improve prediction accuracy through feature elimination.
 
-# Dataset
+## Dataset
 Source: Kaggle
 
-# Features:
+## Features:
 1. Weather
 2. Temperature
 3. Holiday
@@ -22,11 +22,11 @@ Source: Kaggle
 12. Month
 13. Hour
 
-# Data Preprocessing
+## Data Preprocessing
 Reading the File
 bikes = pd.read_csv('dataset.csv')
 
-# Preliminary Analysis and Feature Selection
+## Preliminary Analysis and Feature Selection
 ```python
 bikes_prep = bikes.copy()
 bikes_prep = bikes_prep.drop(['index', 'date', 'casual', 'registered'], axis=1)
@@ -34,7 +34,7 @@ bikes_prep.isnull().sum()
 ```
 # Visualizing the Data
 
-# Histograms for data distribution:
+## Histograms for data distribution:
 ```python
 bikes_prep.hist(rwidth=0.9)
 plt.tight_layout()
@@ -42,7 +42,7 @@ plt.tight_layout()
 ![Screenshot 2024-07-15 190044](https://github.com/user-attachments/assets/2f368787-48de-445a-bfc3-a8f8cd2f88a4)
 
 
-# Scatter plots for continuous features vs. demand:
+## Scatter plots for continuous features vs. demand:
 ```python
 plt.subplot(2,2,1)
 plt.title('Temperature vs Demand')
@@ -65,7 +65,7 @@ plt.tight_layout()
 
 
 
-# Categorical Features vs. Demand
+## Categorical Features vs. Demand
 ```python
 plt.subplot(3,3,1)
 plt.title('Average Demand Vs Season')
@@ -80,22 +80,14 @@ plt.bar(cat_list, cat_average, color=colors)
 
 plt.subplot(3,3,2)
 plt.title('average demand Vs month')
-
-# create the list of unique seasonal values 
 cat_list = bikes_prep['month'].unique()
-
-# create average demand per season using groupby 
 cat_average = bikes_prep.groupby('month').mean()['demand']
 colors = ['m','b','r','g']
 plt.bar(cat_list,cat_average,color = colors)
 
 plt.subplot(3,3,4)
 plt.title('average demand Vs year')
-
-# create the list of unique seasonal values 
 cat_list = bikes_prep['year'].unique()
-
-# create average demand per season using groupby 
 cat_average = bikes_prep.groupby('year').mean()['demand']
 colors = ['m','b','r','g']
 plt.bar(cat_list,cat_average,color = colors)
@@ -103,34 +95,22 @@ plt.bar(cat_list,cat_average,color = colors)
 
 plt.subplot(3,3,5)
 plt.title('average demand Vs hour')
-
-# create the list of unique seasonal values 
 cat_list = bikes_prep['hour'].unique()
-
-# create average demand per season using groupby 
 cat_average = bikes_prep.groupby('hour').mean()['demand']
 colors = ['m','b','r','g']
 plt.bar(cat_list,cat_average,color = colors)
 
 plt.subplot(3,3,6)
 plt.title('average demand Vs weekday')
-
-# create the list of unique seasonal values 
 cat_list = bikes_prep['weekday'].unique()
-
-# create average demand per season using groupby 
 cat_average = bikes_prep.groupby('weekday').mean()['demand']
 colors = ['m','b','r','g']
 plt.bar(cat_list,cat_average,color = colors)
 
 
 plt.subplot(3,3,7)
-plt.title('average demand Vs workingday')
-
-# create the list of unique seasonal values 
+plt.title('average demand Vs workingday') 
 cat_list = bikes_prep['workingday'].unique()
-
-# create average demand per season using groupby 
 cat_average = bikes_prep.groupby('workingday').mean()['demand']
 colors = ['m','b','r','g']
 plt.bar(cat_list,cat_average,color = colors)
@@ -138,11 +118,7 @@ plt.bar(cat_list,cat_average,color = colors)
 
 plt.subplot(3,3,8)
 plt.title('average demand Vs holiday')
-
-# create the list of unique seasonal values 
 cat_list = bikes_prep['holiday'].unique()
-
-# create average demand per season using groupby 
 cat_average = bikes_prep.groupby('holiday').mean()['demand']
 colors = ['m','b','r','g']
 plt.bar(cat_list,cat_average,color = colors)
@@ -154,7 +130,7 @@ plt.tight_layout()
 
 
 # Assumptions of Multiple Linear Regression
-# Checking for Outliers
+## Checking for Outliers
 ```python
 bikes_prep['demand'].describe()
 bikes_prep['demand'].quantile([0.05, 0.10, 0.15, 0.90, 0.95, 0.99])
@@ -171,14 +147,14 @@ plt.acorr(df1, maxlags=12)
 ```
 ![Screenshot 2024-07-15 192214](https://github.com/user-attachments/assets/e340272d-0bf6-4c91-823b-d291b52af3ea)
 
-# Feature Engineering
+## Feature Engineering
 ```python
 Log Normalization of Demand
 bikes_prep['demand'] = np.log(bikes_prep['demand'])
 ```
 ![Screenshot 2024-07-15 192515](https://github.com/user-attachments/assets/3a47b9e6-b2c8-44f0-81ac-c0e3fa87618a)
 
-# Lag Features
+## Lag Features
 ```python
 t_1 = bikes_prep['demand'].shift(+1).to_frame()
 t_2 = bikes_prep['demand'].shift(+2).to_frame()
@@ -209,7 +185,7 @@ Y_test = Y.values[tr_size:]
 
 # Linear Regression Model
 
-# from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression
 std_reg = LinearRegression()
 std_reg.fit(x_train, Y_train)
 
@@ -219,11 +195,11 @@ r2_test = std_reg.score(x_test, Y_test)
 y_predict = std_reg.predict(x_test)
 
 # RMSE AND RMSLE CALCULATION
-# from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error
 
 rmse = math.sqrt(mean_squared_error(Y_test, y_predict))
 ```
-# RMSLE Calculation
+## RMSLE Calculation
 ```python
 y_test_e = [math.exp(y) for y in Y_test]
 y_predict_e = [math.exp(y) for y in y_predict]
@@ -235,7 +211,7 @@ print(rmsle)
 ![Screenshot 2024-07-15 193224](https://github.com/user-attachments/assets/10e0eeba-7768-4e5b-90ab-0161f28bcec6)
 
 
-# Conclusion
+## Conclusion
 Successfully predicted bike demand using various features with reasonable accuracy.
 Feature elimination through graphical analysis improved model performance.
 The model can assist in urban planning and optimizing bike availability.
